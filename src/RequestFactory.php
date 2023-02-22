@@ -218,6 +218,19 @@ class RequestFactory
         return $path;
     }
 
+    protected function getGitlabPath(array $source, $file): string
+    {
+        $queryParams = [
+            'private_token' => $source['token'],
+        ];
+
+        if (mb_strlen($source['branch']) > 0) {
+            $queryParams['ref'] = $source['branch'];
+        }
+
+        return "{$source['base_path']}{$file}/raw?" . http_build_query($queryParams);
+    }
+
     /**
      * Build a Github path.
      *
