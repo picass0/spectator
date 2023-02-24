@@ -28,14 +28,14 @@ class SpectatorServiceProvider extends ServiceProvider
 
     protected function mergeConfig()
     {
-        $configPath = __DIR__.'/../config/spectator.php';
+        $configPath = __DIR__ . '/../config/spectator.php';
 
         $this->mergeConfigFrom($configPath, 'spectator');
     }
 
     protected function registerMiddleware()
     {
-        $this->app[Kernel::class]->prependMiddlewareToGroup('api', Middleware::class);
+        $this->app[Kernel::class]->prependMiddlewareToGroup(config('spectator.middleware_group'), Middleware::class);
     }
 
     protected function decorateTestResponse()
@@ -50,7 +50,7 @@ class SpectatorServiceProvider extends ServiceProvider
 
     protected function publishConfig()
     {
-        $configPath = __DIR__.'/../config/spectator.php';
+        $configPath = __DIR__ . '/../config/spectator.php';
 
         $this->publishes([$configPath => $this->getConfigPath()], 'config');
     }

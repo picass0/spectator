@@ -91,6 +91,10 @@ class ResponseValidator extends AbstractValidator
     {
         $expected_schema = $this->prepareData($schema);
 
+        if (config('spectator.all_response_fields_required')) {
+            $expected_schema = $this->requireAllResponseFields($expected_schema);
+        }
+
         $validator = $this->validator();
         $result = $validator->validate($body, $expected_schema);
 
@@ -200,5 +204,32 @@ class ResponseValidator extends AbstractValidator
         }
 
         return $flat;
+    }
+
+    protected function requireAllResponseFields(\stdClass $expectedSchema): \stdClass
+    {
+        if (!property_exists($expectedSchema, 'properties') || !property_exists($expectedSchema, 'type') || $expectedSchema->type !== 'object') {
+            return $expectedSchema;
+        }
+
+        if (!property_exists($expectedSchema, 'required')) {
+            $expectedSchema->required = [];
+        }
+
+        if (count($expectedSchema->required) > 0) {
+            return $expectedSchema;
+        }
+
+        foreach ($expectedSchema->properties as $name => $value) {
+            if (!in_array($name, $expectedSchema->required)) {
+                $expectedSchema->required[] = $name;
+            }
+        }
+
+        if (count($expectedSchema->required) === 0) {
+            unset($expectedSchema->required);
+        }
+
+        return $expectedSchema;
     }
 }

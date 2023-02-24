@@ -25,23 +25,30 @@ return [
     */
 
     'sources' => [
-        'local' => [
-            'source' => 'local',
-            'base_path' => env('SPEC_PATH'),
+        //'local' => [
+        //    'source' => 'local',
+        //    'base_path' => env('SPEC_PATH'),
+        //],
+
+        //'remote' => [
+        //    'source' => 'remote',
+        //    'base_path' => env('SPEC_PATH'),
+        //    'params' => env('SPEC_URL_PARAMS', ''),
+        //],
+
+        'gitlab' => [
+            'source' => 'gitlab',
+            'branch' => env('SPEC_GITLAB_BRANCH'),
+            'base_path' => env('SPEC_GITLAB_PATH'),
+            'token' => env('SPEC_GITLAB_TOKEN'),
         ],
 
-        'remote' => [
-            'source' => 'remote',
-            'base_path' => env('SPEC_PATH'),
-            'params' => env('SPEC_URL_PARAMS', ''),
-        ],
-
-        'github' => [
-            'source' => 'github',
-            'base_path' => env('SPEC_GITHUB_PATH'),
-            'repo' => env('SPEC_GITHUB_REPO'),
-            'token' => env('SPEC_GITHUB_TOKEN'),
-        ],
+        //'github' => [
+        //    'source' => 'github',
+        //    'base_path' => env('SPEC_GITHUB_PATH'),
+        //    'repo' => env('SPEC_GITHUB_REPO'),
+        //    'token' => env('SPEC_GITHUB_TOKEN'),
+        //],
     ],
 
     /*
@@ -53,7 +60,7 @@ return [
     |
     */
 
-    'path_prefix' => '',
+    'path_prefix' => 'api/v2/my',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,4 +72,10 @@ return [
     */
 
     'suppress_errors' => false,
+
+    'validate_spec_in_api_tests' => env('VALIDATE_SPEC_IN_API_TESTS', false),
+
+    'middleware_group' => 'foundation',
+
+    'all_response_fields_required' => true,
 ];
