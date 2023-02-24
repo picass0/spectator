@@ -260,11 +260,13 @@ abstract class SchemaValidationException extends \Exception implements Exception
 
                         // create entries for all object properties
                         $indent_level = ++$indent_level;
-                        foreach ((array) $schema['properties'] as $key => $next_schema) {
-                            if (isset($schema['required'])) {
-                                $schema_map = array_merge($schema_map, self::formatSchema($next_schema, $location_current, $key, $schema['required'], $indent_level));
-                            } else {
-                                $schema_map = array_merge($schema_map, self::formatSchema($next_schema, $location_current, $key, [], $indent_level));
+                        if (array_key_exists('properties', $schema)) {
+                            foreach ($schema['properties'] as $key => $next_schema) {
+                                if (isset($schema['required'])) {
+                                    $schema_map = array_merge($schema_map, self::formatSchema($next_schema, $location_current, $key, $schema['required'], $indent_level));
+                                } else {
+                                    $schema_map = array_merge($schema_map, self::formatSchema($next_schema, $location_current, $key, [], $indent_level));
+                                }
                             }
                         }
                         break;
