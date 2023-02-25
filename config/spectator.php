@@ -25,16 +25,16 @@ return [
     */
 
     'sources' => [
-        //'local' => [
-        //    'source' => 'local',
-        //    'base_path' => env('SPEC_PATH'),
-        //],
+        'local' => [
+            'source' => 'local',
+            'base_path' => env('SPEC_PATH'),
+        ],
 
-        //'remote' => [
-        //    'source' => 'remote',
-        //    'base_path' => env('SPEC_PATH'),
-        //    'params' => env('SPEC_URL_PARAMS', ''),
-        //],
+        'remote' => [
+            'source' => 'remote',
+            'base_path' => env('SPEC_PATH'),
+            'params' => env('SPEC_URL_PARAMS', ''),
+        ],
 
         'gitlab' => [
             'source' => 'gitlab',
@@ -43,12 +43,12 @@ return [
             'token' => env('SPEC_GITLAB_TOKEN'),
         ],
 
-        //'github' => [
-        //    'source' => 'github',
-        //    'base_path' => env('SPEC_GITHUB_PATH'),
-        //    'repo' => env('SPEC_GITHUB_REPO'),
-        //    'token' => env('SPEC_GITHUB_TOKEN'),
-        //],
+        'github' => [
+            'source' => 'github',
+            'base_path' => env('SPEC_GITHUB_PATH'),
+            'repo' => env('SPEC_GITHUB_REPO'),
+            'token' => env('SPEC_GITHUB_TOKEN'),
+        ],
     ],
 
     /*
